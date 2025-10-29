@@ -1,59 +1,199 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API built with Laravel 12, Vue 3, and SQLite.
 
-## About Laravel
+## Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.2+
+- Composer
+- Node.js & npm
+- SQLite
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Local Setup Instructions
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Clone the Repository
 
-## Learning Laravel
+\`\`\`bash
+git clone git@github.com:LucianoNicacio/laravel_api.git
+cd laravel_api
+\`\`\`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 2. Install Dependencies
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+\`\`\`bash
+# Install PHP dependencies
+composer install
 
-## Laravel Sponsors
+# Install JavaScript dependencies
+npm install
+\`\`\`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Environment Configuration
 
-### Premium Partners
+\`\`\`bash
+# Copy environment file
+cp .env.example .env
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Generate application key
+php artisan key:generate
+\`\`\`
+
+### 4. Database Setup
+
+This project uses SQLite for development.
+
+\`\`\`bash
+# Create SQLite database file
+touch database/database.sqlite
+
+# Run migrations
+php artisan migrate
+
+# (Optional) Seed the database
+php artisan db:seed
+\`\`\`
+
+### 5. Storage Setup
+
+\`\`\`bash
+# Create symbolic link for storage
+php artisan storage:link
+\`\`\`
+
+### 6. Start Development Server
+
+**Option A: Using Laravel Herd (Recommended)**
+
+If you have [Laravel Herd](https://herd.laravel.com) installed, the site will automatically be available at:
+\`\`\`
+http://laravel_api.test
+\`\`\`
+
+**Option B: Using Artisan**
+
+\`\`\`bash
+php artisan serve
+\`\`\`
+
+Visit: http://127.0.0.1:8000
+
+### 7. Compile Frontend Assets
+
+\`\`\`bash
+# For development (with hot reload)
+npm run dev
+
+# For production
+npm run build
+\`\`\`
+
+## Quick Setup Script
+
+Run all setup commands at once:
+
+\`\`\`bash
+composer install && \
+npm install && \
+cp .env.example .env && \
+php artisan key:generate && \
+touch database/database.sqlite && \
+php artisan migrate && \
+php artisan storage:link && \
+npm run build
+\`\`\`
+
+## Environment Variables
+
+Key environment settings in \`.env\`:
+
+\`\`\`env
+APP_NAME=Laravel
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://laravel_api.test
+
+DB_CONNECTION=sqlite
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+\`\`\`
+
+## Common Issues
+
+### Error: "No application encryption key"
+
+**Solution:**
+\`\`\`bash
+php artisan key:generate
+\`\`\`
+
+### Error: "Database does not exist"
+
+**Solution:**
+\`\`\`bash
+touch database/database.sqlite
+php artisan migrate
+\`\`\`
+
+### Error: "Permission denied" (storage/logs)
+
+**Solution:**
+\`\`\`bash
+chmod -R 775 storage bootstrap/cache
+\`\`\`
+
+### Frontend assets not loading
+
+**Solution:**
+\`\`\`bash
+npm run build
+\`\`\`
+
+## API Endpoints
+
+Document your API endpoints here. Example:
+
+\`\`\`
+GET    /api/users         - List all users
+POST   /api/users         - Create user
+GET    /api/users/{id}    - Get user
+PUT    /api/users/{id}    - Update user
+DELETE /api/users/{id}    - Delete user
+\`\`\`
+
+## Testing
+
+\`\`\`bash
+# Run tests
+php artisan test
+
+# Run tests with coverage
+php artisan test --coverage
+\`\`\`
+
+## Tech Stack
+
+- **Backend:** Laravel 12
+- **Frontend:** Vue 3, Inertia.js
+- **Database:** SQLite (development)
+- **Styling:** Tailwind CSS
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create your feature branch (\`git checkout -b feature/amazing-feature\`)
+3. Commit your changes (\`git commit -m 'Add some amazing feature'\`)
+4. Push to the branch (\`git push origin feature/amazing-feature\`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Author
+
+**Luciano Nicacio**
+- GitHub: [@LucianoNicacio](https://github.com/LucianoNicacio)
+- Email: luciano.english@gmail.com
+- LinkedIn: [linkedin.com/in/luciano-nicácio](https://linkedin.com/in/luciano-nicácio)
