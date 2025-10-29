@@ -24,10 +24,6 @@ cd laravel_api
 # Install PHP dependencies
 composer install
 
-# Install JavaScript dependencies
-npm install
-\`\`\`
-
 ### 3. Environment Configuration
 
 \`\`\`bash
@@ -77,29 +73,17 @@ php artisan serve
 
 Visit: http://127.0.0.1:8000
 
-### 7. Compile Frontend Assets
-
-\`\`\`bash
-# For development (with hot reload)
-npm run dev
-
-# For production
-npm run build
-\`\`\`
-
 ## Quick Setup Script
 
 Run all setup commands at once:
 
 \`\`\`bash
 composer install && \
-npm install && \
 cp .env.example .env && \
 php artisan key:generate && \
 touch database/database.sqlite && \
 php artisan migrate && \
-php artisan storage:link && \
-npm run build
+php artisan storage:link
 \`\`\`
 
 ## Environment Variables
@@ -145,11 +129,6 @@ chmod -R 775 storage bootstrap/cache
 
 ### Frontend assets not loading
 
-**Solution:**
-\`\`\`bash
-npm run build
-\`\`\`
-
 ## API Endpoints
 
 Document your API endpoints here. Example:
@@ -175,7 +154,6 @@ php artisan test --coverage
 ## Tech Stack
 
 - **Backend:** Laravel 12
-- **Frontend:** Vue 3, Inertia.js
 - **Database:** SQLite (development)
 - **Styling:** Tailwind CSS
 
